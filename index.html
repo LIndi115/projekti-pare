@@ -16,35 +16,51 @@
         }
         .card {
             background: white;
-            padding: 40px;
+            padding: 35px;
             border-radius: 20px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             text-align: center;
-            max-width: 400px;
+            max-width: 350px;
         }
-        h1 { color: #00796b; margin-bottom: 10px; font-size: 28px; }
-        p { color: #5f6368; line-height: 1.6; font-size: 18px; margin-bottom: 25px; }
+        /* KJO PJESË RREGULLON FOTON TËNDE */
+        .profili {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #25d366;
+            margin-bottom: 20px;
+            background-color: #ddd; /* Shfaqet gri nëse fotoja mungon */
+        }
+        h1 { color: #333; margin-bottom: 5px; font-size: 26px; }
+        p { color: #666; font-size: 16px; margin-bottom: 25px; }
         .btn-wa { 
             background: #25d366; 
             color: white; 
-            padding: 15px 25px;
+            padding: 15px 30px;
             border: none;
-            border-radius: 10px;
+            border-radius: 50px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 18px;
+            font-size: 16px;
             text-decoration: none;
             display: inline-block;
-            transition: 0.2s;
+            transition: 0.3s;
         }
-        .btn-wa:hover { background: #128c7e; transform: scale(1.05); }
+        .btn-wa:hover { 
+            background: #128c7e; 
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+        }
     </style>
 </head>
 <body>
 
     <div class="card">
+        <img src="foto.jpg" alt="Herolind Smajli" class="profili">
+        
         <h1>Herolind Smajli</h1>
-        <p>Kontakti im në WhatsApp. Kliko butonin poshtë për të më shtuar direkt dhe për të biseduar!</p>
+        <p>Kontakti im zyrtar në WhatsApp. Kliko butonin poshtë për të më shtuar në kontakte!</p>
         
         <a href="https://wa.me/38344410456" target="_blank" class="btn-wa">Më shto në WhatsApp</a>
     </div>
