@@ -3,265 +3,375 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JETON THAQI | Sistemi i Faturimit Pro</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>JETON THAQI | Premium Billing System 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     
     <style>
-        :root { --p: #00ff88; --viber: #7360f2; --wa: #25d366; --bg: #050505; --card: #121212; --border: #222; }
-        * { margin:0; padding:0; box-sizing:border-box; font-family:'Plus Jakarta Sans', sans-serif; }
-        body { background: var(--bg); color: white; min-height: 100vh; }
-
-        .wrapper { display: grid; grid-template-columns: 450px 1fr; min-height: 100vh; }
-
-        /* Ana e Majte - Inputet */
-        .input-side { padding: 40px; background: #080808; border-right: 1px solid var(--border); overflow-y: auto; }
-        header { margin-bottom: 30px; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
-        header h1 { color: var(--p); font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px; }
-
-        .form-box { background: var(--card); padding: 25px; border-radius: 20px; border: 1px solid var(--border); }
-        .input-group { margin-bottom: 15px; }
-        label { display: block; font-size: 0.7rem; color: #888; margin-bottom: 6px; text-transform: uppercase; font-weight: 700; }
-        input, select { width: 100%; padding: 12px; background: #000; border: 1px solid #333; border-radius: 10px; color: white; font-size: 0.9rem; outline: none; }
-        input:focus { border-color: var(--p); }
-
-        .material-row { display: grid; grid-template-columns: 1.2fr 1fr; gap: 10px; }
-        
-        .actions-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 20px; }
-        .btn { border: none; padding: 14px; border-radius: 10px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: 0.2s; text-decoration: none; font-size: 0.9rem; }
-        
-        .btn-add { background: var(--p); color: black; width: 100%; }
-        .btn-pdf { background: white; color: black; }
-        .btn-wa { background: var(--wa); color: white; }
-        .btn-viber { background: var(--viber); color: white; }
-        .btn:hover { opacity: 0.9; transform: translateY(-2px); }
-
-        /* Ana e Djathte - Preview */
-        .preview-side { padding: 40px; display: flex; flex-direction: column; align-items: center; background: #0c0c0c; }
-        
-        /* Stili i Fatures (A4 look) */
-        #invoice-container {
-            background: white; color: black; width: 100%; max-width: 650px; min-height: 800px;
-            padding: 50px; border-radius: 4px; position: relative; box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+        :root {
+            --primary: #00ffa3;
+            --primary-glow: rgba(0, 255, 163, 0.3);
+            --accent: #00d1ff;
+            --bg-dark: #0a0a0c;
+            --card-bg: #16161a;
+            --text-main: #ffffff;
+            --text-dim: #a1a1aa;
+            --border: rgba(255, 255, 255, 0.08);
+            --viber: #7360f2;
+            --whatsapp: #25d366;
         }
 
-        .inv-header { display: flex; justify-content: space-between; border-bottom: 3px solid #000; padding-bottom: 20px; margin-bottom: 30px; }
-        .inv-logo h2 { font-weight: 900; font-size: 1.5rem; color: #000; }
-        .inv-info { text-align: right; font-size: 0.75rem; color: #444; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
 
-        .client-section { margin-bottom: 30px; }
-        .client-section label { color: #888; font-size: 0.7rem; }
-        .client-section h3 { font-size: 1.2rem; text-transform: uppercase; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        body { 
+            background: var(--bg-dark); 
+            color: var(--text-main); 
+            min-height: 100vh;
+            background-image: radial-gradient(circle at 50% -20%, #1a2a24 0%, #0a0a0c 100%);
+        }
 
-        .inv-table { width: 100%; border-collapse: collapse; margin-bottom: 40px; }
-        .inv-table th { text-align: left; font-size: 0.75rem; padding: 12px 5px; border-bottom: 2px solid #000; }
-        .inv-table td { padding: 12px 5px; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+        .main-grid {
+            display: grid;
+            grid-template-columns: 420px 1fr;
+            height: 100vh;
+        }
 
-        .inv-footer { margin-top: auto; border-top: 2px solid #000; padding-top: 20px; display: flex; justify-content: space-between; }
-        .total-label { font-size: 0.8rem; font-weight: 700; }
-        .total-price { font-size: 1.8rem; font-weight: 900; }
+        /* --- SIDEBAR PANEL --- */
+        .control-panel {
+            background: rgba(22, 22, 26, 0.8);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            border-right: 1px solid var(--border);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
 
-        .stamp { margin-top: 50px; border-top: 1px dashed #ccc; width: 200px; text-align: center; padding-top: 10px; font-size: 0.7rem; color: #999; }
+        .brand-header h1 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+        }
 
-        @media (max-width: 1000px) { .wrapper { grid-template-columns: 1fr; } .preview-side { padding: 20px; } }
+        .brand-header p { font-size: 0.75rem; color: var(--text-dim); margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; }
+
+        .input-group { display: flex; flex-direction: column; gap: 8px; }
+        label { font-size: 0.7rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase; }
+
+        input, select {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            padding: 14px;
+            border-radius: 12px;
+            color: white;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 15px var(--primary-glow); }
+
+        .row-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+
+        /* --- BUTTONS --- */
+        .btn {
+            padding: 15px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-size: 0.85rem;
+        }
+
+        .btn-main { background: var(--primary); color: #000; box-shadow: 0 4px 20px var(--primary-glow); }
+        .btn-pdf { background: #fff; color: #000; }
+        .btn-wa { background: var(--whatsapp); color: white; }
+        .btn-viber { background: var(--viber); color: white; }
+
+        .btn:hover { transform: translateY(-3px); filter: brightness(1.1); }
+        .btn:active { transform: translateY(0); }
+
+        /* --- PREVIEW AREA --- */
+        .preview-area {
+            background: #050505;
+            padding: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            overflow-y: auto;
+        }
+
+        #invoice-card {
+            background: #fff;
+            color: #000;
+            width: 100%;
+            max-width: 750px;
+            padding: 60px;
+            border-radius: 2px;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        /* Invoice Modern Header */
+        .inv-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 60px;
+        }
+
+        .inv-logo-box h2 { font-weight: 900; font-size: 2.2rem; line-height: 1; letter-spacing: -1.5px; }
+        .inv-logo-box span { color: #555; font-weight: 600; font-size: 0.9rem; }
+
+        .inv-meta { text-align: right; }
+        .inv-meta h4 { font-size: 1.1rem; margin-bottom: 5px; }
+        .inv-meta p { font-size: 0.8rem; color: #666; line-height: 1.6; }
+
+        .client-info-block {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-left: 4px solid #000;
+        }
+        .client-info-block label { color: #888; margin-bottom: 5px; display: block; }
+        .client-info-block h3 { font-size: 1.4rem; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* Table Styling */
+        table { width: 100%; border-collapse: collapse; margin-bottom: 50px; }
+        th { text-align: left; padding: 15px 10px; border-bottom: 2px solid #000; font-size: 0.75rem; text-transform: uppercase; color: #888; }
+        td { padding: 20px 10px; border-bottom: 1px solid #eee; font-size: 0.95rem; }
+        
+        .type-tag { font-size: 0.65rem; padding: 3px 8px; border-radius: 4px; background: #eee; margin-right: 8px; font-weight: 700; }
+
+        .total-section {
+            display: flex;
+            justify-content: flex-end;
+            border-top: 2px solid #000;
+            padding-top: 25px;
+        }
+        .total-box { text-align: right; }
+        .total-box label { font-size: 0.9rem; color: #000; font-weight: 800; }
+        .total-box .amount { font-size: 2.8rem; font-weight: 900; display: block; letter-spacing: -1px; }
+
+        .inv-footer-note {
+            margin-top: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .note-text { font-size: 0.75rem; color: #999; max-width: 350px; line-height: 1.5; }
+        .signature-line { border-top: 1px solid #000; width: 180px; text-align: center; padding-top: 10px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
+
+        @media (max-width: 1100px) {
+            .main-grid { grid-template-columns: 1fr; }
+            .control-panel { height: auto; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="wrapper">
-        <div class="input-side">
-            <header>
-                <h1>JETON THAQI</h1>
-                <p style="font-size: 0.7rem; color: #555;">Sistemi i Faturimit Profesional v2.0</p>
-            </header>
+<div class="main-grid">
+    <aside class="control-panel">
+        <div class="brand-header">
+            <h1>JETON THAQI</h1>
+            <p>Smart Invoicing System v3.0</p>
+        </div>
 
-            <div class="form-box">
-                <div class="input-group">
-                    <label>Emri i Klientit</label>
-                    <input type="text" id="clientInp" placeholder="Psh. Agron Berisha" oninput="updateClient()">
-                </div>
+        <div class="input-group">
+            <label>Emri i Klientit</label>
+            <input type="text" id="clientInp" placeholder="Psh. Herolind Smajli" oninput="updatePreview()">
+        </div>
 
-                <div class="input-group">
-                    <label>Lloji i Artikullit</label>
-                    <select id="typeInp">
-                        <option value="Material">Material</option>
-                        <option value="Punë">Punë e Kryer</option>
-                    </select>
-                </div>
-
-                <div class="input-group">
-                    <label>Përshkrimi</label>
-                    <input type="text" id="nameInp" placeholder="Psh. Siguresa 16A">
-                </div>
-
-                <div class="material-row">
-                    <div class="input-group">
-                        <label>Sasia</label>
-                        <div style="display:flex; gap:5px;">
-                            <input type="number" id="qtyInp" value="1" step="0.1">
-                            <select id="unitInp" style="width: 90px;">
-                                <option value="Copë">Copë</option>
-                                <option value="Metër">Metër</option>
-                                <option value="Punë">Punë</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="input-group">
-                        <label>Çmimi (€)</label>
-                        <input type="number" id="priceInp" placeholder="0.00" step="0.01">
-                    </div>
-                </div>
-
-                <button class="btn btn-add" onclick="addItem()">SHTO NË LISTË +</button>
-                
-                <div class="actions-grid">
-                    <button class="btn btn-pdf" onclick="downloadPDF()">SHKARKO PDF 📄</button>
-                    <button class="btn btn-wa" onclick="sendWA()">DËRGO NË WHATSAPP ✅</button>
-                    <button class="btn btn-viber" onclick="sendViber()">DËRGO NË VIBER 💜</button>
-                </div>
-
-                <button onclick="clearAll()" style="background:transparent; border:none; color:#ff4444; margin-top:20px; cursor:pointer; font-size:0.7rem; width:100%; text-align:center;">Fshij të gjitha të dhënat</button>
+        <div class="row-inputs">
+            <div class="input-group">
+                <label>Lloji</label>
+                <select id="typeInp">
+                    <option value="Material">Material</option>
+                    <option value="Punë">Punë e Kryer</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Njësia</label>
+                <select id="unitInp">
+                    <option value="Copë">Copë</option>
+                    <option value="Metër">Metër</option>
+                    <option value="Punë">Punë</option>
+                </select>
             </div>
         </div>
 
-        <div class="preview-side">
-            <div id="invoice-container">
-                <div class="inv-header">
-                    <div class="inv-logo">
-                        <h2>FATURA</h2>
-                        <p style="font-size:0.8rem; letter-spacing: 2px;">JETON THAQI</p>
-                    </div>
-                    <div class="inv-info">
-                        <p><strong>Nr:</strong> #<span id="invNo">001</span></p>
-                        <p><strong>Data:</strong> <span id="dateDisplay"></span></p>
-                        <p>Drenas, Kosovë</p>
-                        <p>+383 4X XXX XXX</p>
-                    </div>
-                </div>
+        <div class="input-group">
+            <label>Përshkrimi i Artikullit / Punës</label>
+            <input type="text" id="nameInp" placeholder="Psh. Montimi i ndriçimit led">
+        </div>
 
-                <div class="client-section">
-                    <label>FATURË PËR:</label>
-                    <h3 id="clientDisplay">---</h3>
-                </div>
-
-                <table class="inv-table">
-                    <thead>
-                        <tr>
-                            <th>PËRSHKRIMI</th>
-                            <th>SASIA</th>
-                            <th>ÇMIMI</th>
-                            <th style="text-align:right">TOTALI</th>
-                        </tr>
-                    </thead>
-                    <tbody id="itemsDisplay">
-                        </tbody>
-                </table>
-
-                <div class="inv-footer">
-                    <div>
-                        <p style="font-size: 0.7rem; color: #666; max-width: 300px;">
-                            <strong>Vërejtje:</strong> Ky dokument shërben si faturë për materialin dhe punën e kryer. Ju faleminderit për besimin!
-                        </p>
-                        <div class="stamp">Nënshkrimi i Pronarit</div>
-                    </div>
-                    <div style="text-align: right;">
-                        <p class="total-label">TOTALI PËR PAGESË</p>
-                        <p class="total-price" id="totalDisplay">0.00 €</p>
-                    </div>
-                </div>
+        <div class="row-inputs">
+            <div class="input-group">
+                <label>Sasia</label>
+                <input type="number" id="qtyInp" value="1" step="0.1">
+            </div>
+            <div class="input-group">
+                <label>Çmimi (€)</label>
+                <input type="number" id="priceInp" placeholder="0.00">
             </div>
         </div>
-    </div>
 
-    <script>
-        let items = [];
-        const date = new Date();
-        document.getElementById('dateDisplay').innerText = date.toLocaleDateString('sq-AL');
-        document.getElementById('invNo').innerText = Math.floor(Math.random() * 9000) + 1000;
+        <button class="btn btn-main" onclick="addItem()">SHTO NË FATURË +</button>
 
-        function updateClient() {
-            const val = document.getElementById('clientInp').value;
-            document.getElementById('clientDisplay').innerText = val || "---";
-        }
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+            <button class="btn btn-pdf" onclick="downloadPDF()">PDF 📄</button>
+            <button class="btn btn-wa" onclick="sendWhatsApp()">WHATSAPP ✅</button>
+        </div>
+        <button class="btn btn-viber" onclick="sendViber()">DËRGO NË VIBER 💜</button>
 
-        function addItem() {
-            const name = document.getElementById('nameInp').value;
-            const type = document.getElementById('typeInp').value;
-            const qty = parseFloat(document.getElementById('qtyInp').value);
-            const unit = document.getElementById('unitInp').value;
-            const price = parseFloat(document.getElementById('priceInp').value);
+        <button onclick="clearInvoice()" style="background:none; border:none; color:#ff5e5e; font-size:0.7rem; cursor:pointer; margin-top:10px; font-weight:700; text-transform:uppercase;">Fshij të gjitha të dhënat</button>
+    </aside>
 
-            if (!name || isNaN(qty) || isNaN(price)) {
-                alert("Plotëso të gjitha fushat!");
-                return;
-            }
+    <main class="preview-area">
+        <div id="invoice-card">
+            <div class="inv-top">
+                <div class="inv-logo-box">
+                    <span>ELEKTRO INSTALIME</span>
+                    <h2>JETON THAQI</h2>
+                </div>
+                <div class="inv-meta">
+                    <h4>FATURA #<span id="invNo">0000</span></h4>
+                    <p>Data: <span id="dateDisplay"></span><br>
+                    Vendi: Drenas, Kosovë<br>
+                    Tel: +383 4X XXX XXX</p>
+                </div>
+            </div>
 
-            const total = qty * price;
-            items.push({ name, type, qty, unit, price, total });
-            render();
+            <div class="client-info-block">
+                <label>Faturë për klientin:</label>
+                <h3 id="clientDisplay">KLIENTI SHEMBULL</h3>
+            </div>
 
-            document.getElementById('nameInp').value = "";
-            document.getElementById('priceInp').value = "";
-        }
-
-        function render() {
-            const display = document.getElementById('itemsDisplay');
-            const totalDisplay = document.getElementById('totalDisplay');
-            display.innerHTML = "";
-            let grandTotal = 0;
-
-            items.forEach((item, index) => {
-                grandTotal += item.total;
-                display.innerHTML += `
+            <table>
+                <thead>
                     <tr>
-                        <td><strong>[${item.type}]</strong> ${item.name}</td>
-                        <td>${item.qty} ${item.unit}</td>
-                        <td>${item.price.toFixed(2)} €</td>
-                        <td style="text-align:right; font-weight:700;">${item.total.toFixed(2)} €</td>
+                        <th style="width: 50%;">Përshkrimi i Shërbimit/Materialit</th>
+                        <th>Sasia</th>
+                        <th>Çmimi</th>
+                        <th style="text-align: right;">Totali</th>
                     </tr>
-                `;
-            });
-            totalDisplay.innerText = grandTotal.toFixed(2) + " €";
-        }
+                </thead>
+                <tbody id="itemsList">
+                    </tbody>
+            </table>
 
-        function downloadPDF() {
-            const element = document.getElementById('invoice-container');
-            const opt = {
-                margin: 0.5,
-                filename: 'Fatura_Jeton_Thaqi.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2 },
-                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-            };
-            html2pdf().set(opt).from(element).save();
-        }
+            <div class="total-section">
+                <div class="total-box">
+                    <label>TOTALI PËR PAGESË</label>
+                    <span class="amount" id="grandTotal">0.00 €</span>
+                </div>
+            </div>
 
-        function generateText() {
-            const client = document.getElementById('clientInp').value || "Klient";
-            let text = `⚡ FATURA: JETON THAQI\n👤 Klienti: ${client}\n--------------------------\n`;
-            items.forEach(i => {
-                text += `▪️ ${i.name} (${i.qty} ${i.unit}): ${i.total.toFixed(2)}€\n`;
-            });
-            text += `--------------------------\n💰 TOTALI: ${document.getElementById('totalDisplay').innerText}`;
-            return text;
-        }
+            <div class="inv-footer-note">
+                <div class="note-text">
+                    <strong>Vërejtje:</strong> Ky dokument është gjeneruar në mënyrë digjitale dhe shërben si faturë zyrtare për shërbimet e kryera. Faleminderit që zgjodhët cilësinë dhe profesionalizmin tonë.
+                </div>
+                <div class="signature-line">
+                    Nënshkrimi i autorizuar
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
 
-        function sendWA() {
-            window.open("https://wa.me/?text=" + encodeURIComponent(generateText()), '_blank');
-        }
+<script>
+    let items = [];
+    const date = new Date();
+    document.getElementById('dateDisplay').innerText = date.toLocaleDateString('sq-AL');
+    document.getElementById('invNo').innerText = Math.floor(1000 + Math.random() * 9000);
 
-        function sendViber() {
-            window.open("viber://forward?text=" + encodeURIComponent(generateText()), '_blank');
-        }
+    function updatePreview() {
+        const name = document.getElementById('clientInp').value;
+        document.getElementById('clientDisplay').innerText = name || "KLIENTI SHEMBULL";
+    }
 
-        function clearAll() {
-            if(confirm("Dëshiron të fshish listën?")) {
-                items = [];
-                render();
-                document.getElementById('clientInp').value = "";
-                updateClient();
-            }
+    function addItem() {
+        const name = document.getElementById('nameInp').value;
+        const type = document.getElementById('typeInp').value;
+        const unit = document.getElementById('unitInp').value;
+        const qty = parseFloat(document.getElementById('qtyInp').value);
+        const price = parseFloat(document.getElementById('priceInp').value);
+
+        if(!name || !price) { alert("Ju lutem plotësoni përshkrimin dhe çmimin!"); return; }
+
+        const total = qty * price;
+        items.push({ name, type, unit, qty, price, total });
+        
+        renderItems();
+        
+        // Reset inputs
+        document.getElementById('nameInp').value = "";
+        document.getElementById('priceInp').value = "";
+    }
+
+    function renderItems() {
+        const list = document.getElementById('itemsList');
+        const totalDisplay = document.getElementById('grandTotal');
+        list.innerHTML = "";
+        let gTotal = 0;
+
+        items.forEach((item, index) => {
+            gTotal += item.total;
+            list.innerHTML += `
+                <tr>
+                    <td><span class="type-tag">${item.type}</span> <strong>${item.name}</strong></td>
+                    <td>${item.qty} ${item.unit}</td>
+                    <td>${item.price.toFixed(2)} €</td>
+                    <td style="text-align: right; font-weight: 700;">${item.total.toFixed(2)} €</td>
+                </tr>
+            `;
+        });
+
+        totalDisplay.innerText = gTotal.toFixed(2) + " €";
+    }
+
+    function downloadPDF() {
+        const element = document.getElementById('invoice-card');
+        const opt = {
+            margin: 0,
+            filename: `Fatura_JetonThaqi_${Math.floor(Math.random()*1000)}.pdf`,
+            image: { type: 'jpeg', quality: 1 },
+            html2canvas: { scale: 3, useCORS: true },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+        html2pdf().set(opt).from(element).save();
+    }
+
+    function generateShareText() {
+        const client = document.getElementById('clientInp').value || "Klient";
+        let text = `⚡ *FATURA: JETON THAQI* ⚡\n👤 Klienti: *${client}*\n\n`;
+        items.forEach(i => {
+            text += `🔹 ${i.name} (${i.qty} ${i.unit}) - *${i.total.toFixed(2)}€*\n`;
+        });
+        text += `\n━━━━━━━━━━━━━━\n💰 *TOTALI: ${document.getElementById('grandTotal').innerText}*\n━━━━━━━━━━━━━━\n🙏 Faleminderit për besimin!`;
+        return encodeURIComponent(text);
+    }
+
+    function sendWhatsApp() { window.open(`https://wa.me/?text=${generateShareText()}`, '_blank'); }
+    function sendViber() { window.open(`viber://forward?text=${generateShareText()}`, '_blank'); }
+
+    function clearInvoice() {
+        if(confirm("A jeni i sigurt që dëshironi të fshini të gjitha të dhënat?")) {
+            items = [];
+            document.getElementById('clientInp').value = "";
+            updatePreview();
+            renderItems();
         }
-    </script>
+    }
+</script>
+
 </body>
 </html>
